@@ -1,11 +1,5 @@
-
 exports.up = (pgm) => {
-  pgm.createTable('thread_comment', {
-    id: {
-      type: 'VARCHAR(50)',
-      notNull: true,
-      primaryKey: true,
-    },
+  pgm.createTable('likes_comment', {
     owner: {
       type: 'VARCHAR(50)',
       notNull: true,
@@ -14,29 +8,26 @@ exports.up = (pgm) => {
       type: 'VARCHAR(50)',
       notNull: true,
     },
-    content: {
+    comment_id: {
       type: 'VARCHAR(50)',
       notNull: true,
-    },
-    date: {
-      type: 'timestamp',
-      default: pgm.func('current_timestamp'),
-    },
-    is_deleted: {
-      type: 'boolean',
-      default: false,
     },
   });
 
   pgm.addConstraint(
-    'thread_comment',
-    'fk_thread_comment.owner_users.id',
+    'likes_comment',
+    'fk_likes_comment.owner_users.id',
     'FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE'
   );
   pgm.addConstraint(
-    'thread_comment',
-    'fk_thread_comment.thread_id_thread.id',
+    'likes_comment',
+    'fk_likes_comment.thread_id_thread.id',
     'FOREIGN KEY(thread_id) REFERENCES thread(id) ON DELETE CASCADE'
+  );
+  pgm.addConstraint(
+    'likes_comment',
+    'fk_likes_comment.comment_id_thread_comment.id',
+    'FOREIGN KEY(comment_id) REFERENCES thread_comment(id) ON DELETE CASCADE'
   );
 };
 

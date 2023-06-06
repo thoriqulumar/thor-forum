@@ -32,7 +32,7 @@ describe('DetailCommentThread entities', () => {
     );
   });
 
-  it('hould create DetailCommentThread entities correctly when is_delete = true', () => {
+  it('should create DetailCommentThread entities correctly when is_delete = true', () => {
     // Arrange
     const payload = {
       id: 'userid',
