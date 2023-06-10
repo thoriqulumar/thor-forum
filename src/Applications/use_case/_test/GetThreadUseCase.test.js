@@ -1,11 +1,12 @@
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
+const LikeRepository = require('../../../Domains/likes/LikeRepository');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const GetThreadUseCase = require('../GetThreadUseCase');
 
 describe('GetThreadUseCase', () => {
   it('should orchestrating the get thread action correctly', async () => {
     const threadId = 'thread-123';
-
+    const commentId = 'comment-123';
     const threadData = {
       id: threadId,
       title: 'sebuah thread',
@@ -36,12 +37,14 @@ describe('GetThreadUseCase', () => {
           username: 'johndoe',
           date: '2021-08-08T07:22:33.555Z',
           content: 'sebuah comment',
+          likeCount: 1,
         },
       ],
     };
 
     const mockCommentRepository = new CommentRepository();
     const mockThreadRepository = new ThreadRepository();
+    const mockLikeRepository = new LikeRepository();
 
     mockThreadRepository.verifyExistingThread = jest
       .fn()
@@ -52,10 +55,14 @@ describe('GetThreadUseCase', () => {
     mockCommentRepository.getCommentByThreadId = jest
       .fn()
       .mockImplementation(() => Promise.resolve(commentData));
+      mockLikeRepository.getLikesByComment = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve(1));
 
     const getThreadUseCase = new GetThreadUseCase({
       commentRepository: mockCommentRepository,
       threadRepository: mockThreadRepository,
+      likeRepository: mockLikeRepository,
     });
 
     // Action
@@ -65,6 +72,7 @@ describe('GetThreadUseCase', () => {
     expect(mockThreadRepository.verifyExistingThread).toBeCalledWith(threadId);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(threadId);
     expect(mockCommentRepository.getCommentByThreadId).toBeCalledWith(threadId);
+    expect(mockLikeRepository.getLikesByComment).toBeCalledWith(commentId);
     expect(result).toStrictEqual(responseData);
   });
 

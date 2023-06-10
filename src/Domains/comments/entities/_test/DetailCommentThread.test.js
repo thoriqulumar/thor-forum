@@ -49,7 +49,7 @@ describe('DetailCommentThread entities', () => {
       date: 'tanggal',
     };
     // Action
-    const responseDetailComment = new DetailCommentThread(payload).get();
+    const responseDetailComment = new DetailCommentThread(payload).execute(1);
 
     // Assert
     expect(responseDetailComment).toBeInstanceOf(Object);
@@ -57,6 +57,7 @@ describe('DetailCommentThread entities', () => {
     expect(responseDetailComment.username).toEqual(expectedResponse.username);
     expect(responseDetailComment.content).toEqual(expectedResponse.content);
     expect(responseDetailComment.date).toEqual(expectedResponse.date);
+    expect(responseDetailComment.likeCount).toEqual(1);
   });
 
   it('should create DetailCommentThread entities correctly', () => {
@@ -76,12 +77,13 @@ describe('DetailCommentThread entities', () => {
       date: 'tanggal',
     };
     // Action
-    const responseDetailComment = new DetailCommentThread(payload).get();
+    const responseDetailComment = new DetailCommentThread(payload).execute(1);
     // Assert
     expect(responseDetailComment).toBeInstanceOf(Object);
     expect(responseDetailComment.id).toEqual(expectedResponse.id);
     expect(responseDetailComment.username).toEqual(expectedResponse.username);
     expect(responseDetailComment.content).toEqual(expectedResponse.content);
     expect(responseDetailComment.date).toEqual(expectedResponse.date);
+    expect(responseDetailComment.likeCount).toEqual(1);
   });
 });
