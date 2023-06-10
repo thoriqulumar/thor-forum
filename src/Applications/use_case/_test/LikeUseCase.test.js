@@ -49,15 +49,9 @@ describe('AddCommentUseCase', () => {
       useCasePayload.commentId
     );
     expect(mockLikeRepository.verifyExistingLike).toBeCalledWith(
-      useCasePayload.commentId,
-      useCasePayload.owner,
-      useCasePayload.threadId
+      useCasePayload
     );
-    expect(mockLikeRepository.addLike).toBeCalledWith(
-      useCasePayload.commentId,
-      useCasePayload.owner,
-      useCasePayload.threadId
-    );
+    expect(mockLikeRepository.addLike).toBeCalledWith(useCasePayload);
   });
 
   it('should orchestrating the delete like action correctly', async () => {
@@ -109,14 +103,10 @@ describe('AddCommentUseCase', () => {
       useCasePayload.commentId
     );
     expect(mockLikeRepository.verifyExistingLike).toBeCalledWith(
-      useCasePayload.commentId,
-      useCasePayload.owner,
-      useCasePayload.threadId
+      useCasePayload
     );
     expect(mockLikeRepository.deleteLike).toBeCalledWith(
-      useCasePayload.commentId,
-      useCasePayload.owner,
-      useCasePayload.threadId
+      useCasePayload
     );
   });
 });

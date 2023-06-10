@@ -8,8 +8,8 @@ class LikeRepositoryPostgres extends LikeRepository {
     this._pool = pool;
   }
 
-  async verifyExistingLike(comment) {
-    const { threadId, commentId, owner } = comment;
+  async verifyExistingLike(payload) {
+    const { threadId, commentId, owner } = payload;
     const query = {
       text: 'SELECT * FROM likes_comment WHERE owner = $1 AND thread_id = $2 AND comment_id = $3',
       values: [owner, threadId, commentId],
@@ -23,8 +23,8 @@ class LikeRepositoryPostgres extends LikeRepository {
     return true;
   }
 
-  async deleteLike(comment) {
-    const { threadId, commentId, owner } = comment;
+  async deleteLike(payload) {
+    const { threadId, commentId, owner } = payload;
     const query = {
       text: 'DELETE FROM likes_comment WHERE owner = $1 AND thread_id = $2 AND comment_id = $3',
       values: [owner, threadId, commentId],
@@ -37,8 +37,8 @@ class LikeRepositoryPostgres extends LikeRepository {
     }
   }
 
-  async addLike(comment) {
-    const { threadId, commentId, owner } = comment;
+  async addLike(payload) {
+    const { threadId, commentId, owner } = payload;
     const query = {
       text: 'INSERT INTO likes_comment VALUES($1, $2, $3) RETURNING comment_id, owner, thread_id',
       values: [owner, threadId, commentId],
