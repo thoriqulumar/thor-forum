@@ -73,6 +73,19 @@ const AppTestHelper = {
 
     return commentData;
   },
+
+  async likeOrDislikeComment({ headers, threadId, commentId }) {
+    const server = await createServer(container);
+    const likeResponse = await server.inject({
+      method: 'PUT',
+      url: `/threads/${threadId}/comments/${commentId}/likes`,
+      headers,
+    });
+
+    const likeResponnseJson = JSON.parse(likeResponse.payload);
+
+    return likeResponnseJson;
+  },
 };
 
 module.exports = AppTestHelper;

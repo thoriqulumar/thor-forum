@@ -23,13 +23,14 @@ class DetailCommentThread {
     }
   }
 
-  get() {
+  execute(like) {
     const { id, username, content, date, is_deleted } = this._comment;
     return {
       id,
       username,
       date,
       content: is_deleted ? '**komentar telah dihapus**' : content,
+      likeCount: like,
     };
   }
 }
