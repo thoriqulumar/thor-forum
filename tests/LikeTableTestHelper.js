@@ -26,7 +26,8 @@ const LikeTableTestHelper = {
     };
 
     const result = await pool.query(query);
-    return result.rows;
+    
+    return result.rows.length;
   },
 
   async deleteLike({

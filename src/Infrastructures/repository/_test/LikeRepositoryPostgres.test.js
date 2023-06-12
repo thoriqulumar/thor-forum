@@ -50,7 +50,7 @@ describe('LikeRepostioryPostgres', () => {
 
       // Assert
       const like = await LikeTableTestHelper.findLike(payloadLike);
-      expect(like).toHaveLength(1);
+      expect(like).toEqual(1);
     });
 
     it('should return response thread correctly', async () => {
@@ -176,9 +176,11 @@ describe('LikeRepostioryPostgres', () => {
       const likeRepositoryPostgres = new LikeRepostioryPostgres(pool);
 
       // Actio & Assert
-      expect(
+      await expect(
         likeRepositoryPostgres.deleteLike(payloadLike)
       ).resolves.not.toThrowError(InvariantError);
+      const like = await LikeTableTestHelper.findLike(payloadLike);
+      expect(like).toEqual(0);
     });
   });
 
