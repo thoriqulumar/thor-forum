@@ -26,7 +26,7 @@ describe('AddCommentUseCase', () => {
       .mockImplementation(() => Promise.resolve());
     mockLikeRepository.verifyExistingLike = jest
       .fn()
-      .mockImplementation(() => Promise.resolve(null));
+      .mockImplementation(() => Promise.resolve(false));
     mockLikeRepository.addLike = jest
       .fn()
       .mockImplementation(() => Promise.resolve());
@@ -73,7 +73,7 @@ describe('AddCommentUseCase', () => {
       .mockImplementation(() => Promise.resolve());
     mockCommentRepository.verifyExistingComment = jest
       .fn()
-      .mockImplementation(() => Promise.resolve());
+      .mockImplementation(() => Promise.resolve(true));
     mockLikeRepository.verifyExistingLike = jest.fn().mockImplementation(() =>
       Promise.resolve({
         commentId: 'idComment',
